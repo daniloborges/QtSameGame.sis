@@ -39,77 +39,43 @@
 ****************************************************************************/
 
 import QtQuick 1.0
-import "components"
-import "components/samegame.js" as SameGame
 
 Rectangle {
-    id: screen
+    id: container
 
-    width: 490; height: 720
+    property string text: "Button"
 
-    SystemPalette { id: activePalette }
+    signal clicked
 
-    Item {
-        width: parent.width
-        anchors { top: parent.top; bottom: toolBar.top }
+    width: buttonLabel.width + 20; height: buttonLabel.height + 5
+    border { width: 1; color: Qt.darker(activePalette.button) }
+    smooth: true
+    radius: 8
 
-        Image {
-            id: background
-            anchors.fill: parent
-            source: "qrc:/gfx/background.jpg"
-            fillMode: Image.PreserveAspectCrop
-        }
-
-        Item {
-            id: gameCanvas
-            property int score: 0
-            property int blockSize: 40
-
-            anchors.centerIn: parent
-            width: parent.width - (parent.width % blockSize);
-            height: parent.height - (parent.height % blockSize);
-
-            MouseArea {
-                anchors.fill: parent; onClicked: SameGame.handleClick(mouse.x,mouse.y);
+    // color the button with a gradient
+    gradient: Gradient {
+        GradientStop {
+            position: 0.0
+            color: {
+                if (mouseArea.pressed)
+                    return activePalette.dark
+                else
+                    return activePalette.light
             }
         }
+        GradientStop { position: 1.0; color: activePalette.button }
     }
 
-    Dialog {
-        id: dialog
-        anchors.centerIn: parent
-        z: 100
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        onClicked: container.clicked();
     }
 
-    //![0]
-    Dialog {
-        id: nameInputDialog
-        anchors.centerIn: parent
-        z: 100
-
-        onClosed: {
-            if (nameInputDialog.inputText != "")
-                SameGame.saveHighScore(nameInputDialog.inputText);
-        }
-    }
-    //![0]
-
-    Rectangle {
-        id: toolBar
-        width: parent.width; height: 30
-        color: activePalette.window
-        anchors.bottom: screen.bottom
-
-        Button {
-            anchors { left: parent.left; verticalCenter: parent.verticalCenter }
-            text: "New Game"
-            onClicked: SameGame.startNewGame()
-        }
-
-        Text {
-            id: score
-            anchors { right: parent.right; verticalCenter: parent.verticalCenter }
-            text: "Score: " + gameCanvas.score
-        }
+    Text {
+        id: buttonLabel
+        anchors.centerIn: container
+        color: activePalette.buttonText
+        text: container.text
     }
 }

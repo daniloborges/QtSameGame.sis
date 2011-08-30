@@ -39,77 +39,84 @@
 ****************************************************************************/
 
 import QtQuick 1.0
-import "components"
-import "components/samegame.js" as SameGame
+import Qt.labs.particles 1.0
 
-Rectangle {
-    id: screen
+Item {
+    id: block
 
-    width: 490; height: 720
+    property int type: 0
+    property bool dying: false
 
-    SystemPalette { id: activePalette }
+    //![1]
+    property bool spawned: false
 
-    Item {
-        width: parent.width
-        anchors { top: parent.top; bottom: toolBar.top }
+    Behavior on x {
+        enabled: spawned;
+        SpringAnimation{ spring: 2; damping: 0.2 }
+    }
+    Behavior on y {
+        SpringAnimation{ spring: 2; damping: 0.2 }
+    }
+    //![1]
 
-        Image {
-            id: background
-            anchors.fill: parent
-            source: "qrc:/gfx/background.jpg"
-            fillMode: Image.PreserveAspectCrop
+    //![2]
+    Image {
+        id: img
+
+        anchors.fill: parent
+        source: {
+            if (type == 0)
+                return "qrc:/gfx/redStone.png";
+            else if (type == 1)
+                return "qrc:/gfx/blueStone.png";
+            else
+                return "qrc:/gfx/greenStone.png";
         }
+        opacity: 0
 
-        Item {
-            id: gameCanvas
-            property int score: 0
-            property int blockSize: 40
-
-            anchors.centerIn: parent
-            width: parent.width - (parent.width % blockSize);
-            height: parent.height - (parent.height % blockSize);
-
-            MouseArea {
-                anchors.fill: parent; onClicked: SameGame.handleClick(mouse.x,mouse.y);
-            }
+        Behavior on opacity {
+            NumberAnimation { properties:"opacity"; duration: 200 }
         }
     }
+    //![2]
 
-    Dialog {
-        id: dialog
+    //![3]
+    Particles {
+        id: particles
+
+        width: 1; height: 1
         anchors.centerIn: parent
-        z: 100
-    }
 
-    //![0]
-    Dialog {
-        id: nameInputDialog
-        anchors.centerIn: parent
-        z: 100
-
-        onClosed: {
-            if (nameInputDialog.inputText != "")
-                SameGame.saveHighScore(nameInputDialog.inputText);
+        emissionRate: 0
+        lifeSpan: 700; lifeSpanDeviation: 600
+        angle: 0; angleDeviation: 360;
+        velocity: 100; velocityDeviation: 30
+        source: {
+            if (type == 0)
+                return "qrc:/gfx/redStar.png";
+            else if (type == 1) 
+                return "qrc:/gfx/blueStar.png";
+            else
+                return "qrc:/gfx/greenStar.png";
         }
     }
-    //![0]
+    //![3]
 
-    Rectangle {
-        id: toolBar
-        width: parent.width; height: 30
-        color: activePalette.window
-        anchors.bottom: screen.bottom
+    //![4]
+    states: [
+        State {
+            name: "AliveState"
+            when: spawned == true && dying == false
+            PropertyChanges { target: img; opacity: 1 }
+        },
 
-        Button {
-            anchors { left: parent.left; verticalCenter: parent.verticalCenter }
-            text: "New Game"
-            onClicked: SameGame.startNewGame()
+        State {
+            name: "DeathState"
+            when: dying == true
+            StateChangeScript { script: particles.burst(50); }
+            PropertyChanges { target: img; opacity: 0 }
+            StateChangeScript { script: block.destroy(1000); }
         }
-
-        Text {
-            id: score
-            anchors { right: parent.right; verticalCenter: parent.verticalCenter }
-            text: "Score: " + gameCanvas.score
-        }
-    }
+    ]
+    //![4]
 }

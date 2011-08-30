@@ -39,77 +39,69 @@
 ****************************************************************************/
 
 import QtQuick 1.0
-import "components"
-import "components/samegame.js" as SameGame
 
+//![0]
 Rectangle {
-    id: screen
+    id: container
+//![0]
 
-    width: 490; height: 720
+//![1]
+    property string inputText: textInput.text
+    signal closed
 
-    SystemPalette { id: activePalette }
+    function show(text) {
+        dialogText.text = text;
+        container.opacity = 1;
+        textInput.opacity = 0;
+    }
 
-    Item {
-        width: parent.width
-        anchors { top: parent.top; bottom: toolBar.top }
+    function showWithInput(text) {
+        show(text);
+        textInput.opacity = 1;
+        textInput.focus = true;
+        textInput.text = ""
+    }
 
-        Image {
-            id: background
-            anchors.fill: parent
-            source: "qrc:/gfx/background.jpg"
-            fillMode: Image.PreserveAspectCrop
-        }
+    function hide() {
+        textInput.focus = false;
+        container.opacity = 0;
+        container.closed();
+    }
+//![1]
 
-        Item {
-            id: gameCanvas
-            property int score: 0
-            property int blockSize: 40
+    width: dialogText.width + textInput.width + 20
+    height: dialogText.height + 20
+    opacity: 0
+    visible: opacity > 0
 
-            anchors.centerIn: parent
-            width: parent.width - (parent.width % blockSize);
-            height: parent.height - (parent.height % blockSize);
+    Text {
+        id: dialogText
+        anchors { verticalCenter: parent.verticalCenter; left: parent.left; leftMargin: 10 }
+        text: ""
+    }
 
-            MouseArea {
-                anchors.fill: parent; onClicked: SameGame.handleClick(mouse.x,mouse.y);
-            }
+//![2]
+    TextInput {
+        id: textInput
+        anchors { verticalCenter: parent.verticalCenter; left: dialogText.right }
+        width: 80
+        text: ""
+
+        onAccepted: container.hide()    // close dialog when Enter is pressed
+    }
+//![2]
+
+    MouseArea {
+        anchors.fill: parent
+
+        onClicked:  {
+            if (textInput.text == "" && textInput.opacity > 0)
+                textInput.openSoftwareInputPanel();
+            else
+                hide();
         }
     }
 
-    Dialog {
-        id: dialog
-        anchors.centerIn: parent
-        z: 100
-    }
-
-    //![0]
-    Dialog {
-        id: nameInputDialog
-        anchors.centerIn: parent
-        z: 100
-
-        onClosed: {
-            if (nameInputDialog.inputText != "")
-                SameGame.saveHighScore(nameInputDialog.inputText);
-        }
-    }
-    //![0]
-
-    Rectangle {
-        id: toolBar
-        width: parent.width; height: 30
-        color: activePalette.window
-        anchors.bottom: screen.bottom
-
-        Button {
-            anchors { left: parent.left; verticalCenter: parent.verticalCenter }
-            text: "New Game"
-            onClicked: SameGame.startNewGame()
-        }
-
-        Text {
-            id: score
-            anchors { right: parent.right; verticalCenter: parent.verticalCenter }
-            text: "Score: " + gameCanvas.score
-        }
-    }
+//![3]
 }
+//![3]

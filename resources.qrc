@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>gfx/background.jpg</file>
+        <file>gfx/blueStar.png</file>
+        <file>gfx/blueStone.png</file>
+        <file>gfx/greenStar.png</file>
+        <file>gfx/greenStone.png</file>
+        <file>gfx/redStar.png</file>
+        <file>gfx/redStone.png</file>
+        <file>gfx/star.png</file>
+        <file>gfx/yellowStone.png</file>
+    </qresource>
+</RCC>

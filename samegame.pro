@@ -3,9 +3,13 @@
 CONFIG += qt-components #mobility
 # MOBILITY +=
 
+TARGET = SameGame
+VERSION = 1.0.0
+
 # Add more folders to ship with the application, here
 qml_folder.source = qml/samegame
 qml_folder.target = qml
+
 DEPLOYMENTFOLDERS = qml_folder
 
 # Additional import path used to resolve QML modules in Creator's code model
@@ -27,6 +31,7 @@ symbian{
 # Allow network access on Symbian
     TARGET.CAPABILITY += NetworkServices
 
+}
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp
@@ -35,4 +40,8 @@ SOURCES += main.cpp
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
-OTHER_FILES += README
+OTHER_FILES += \
+    README
+
+RESOURCES += \
+    resources.qrc
