@@ -10,7 +10,7 @@ Window {
     Image {
         id: background
         anchors { fill:parent; bottomMargin: toolBar.height }
-        source: "qrc:/shared/pics/background.jpg"
+        source: "qrc:/gfx/background.jpg"
         fillMode: Image.PreserveAspectCrop
     }
 

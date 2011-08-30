@@ -27,11 +27,11 @@ Item {
         anchors.fill: parent
         source: {
             if (type == 0)
-                return "qrc:/shared/pics/redStone.png";
+                return "qrc:/gfx/redStone.png";
             else if (type == 1)
-                return "qrc:/shared/pics/blueStone.png";
+                return "qrc:/gfx/blueStone.png";
             else
-                return "qrc:/shared/pics/greenStone.png";
+                return "qrc:/gfx/greenStone.png";
         }
         opacity: 0
 
@@ -54,11 +54,11 @@ Item {
         velocity: 100; velocityDeviation: 30
         source: {
             if (type == 0)
-                return "qrc:/shared/pics/redStar.png";
+                return "qrc:/gfx/redStar.png";
             else if (type == 1)
-                return "qrc:/shared/pics/blueStar.png";
+                return "qrc:/gfx/blueStar.png";
             else
-                return "qrc:/shared/pics/greenStar.png";
+                return "qrc:/gfx/greenStar.png";
         }
     }
     //![3]
