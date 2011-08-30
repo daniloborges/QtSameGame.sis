@@ -1,10 +1,10 @@
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
-CONFIG += qt-components #mobility
+# CONFIG += mobility
 # MOBILITY +=
 
 TARGET = SameGame
-VERSION = 1.0.0
+VERSION = 1.1.0
 
 # Add more folders to ship with the application, here
 qml_folder.source = qml/samegame
@@ -31,7 +31,19 @@ symbian{
 # Allow network access on Symbian
     TARGET.CAPABILITY += NetworkServices
 
+#for symbian 3
+    contains(SYMBIAN_VERSION, Symbian3){
+        message(Symbian^3)
+
+        CONFIG += qt-components
+        DEFINES += QT_NO_OPENGL QT_COMPONENTS
+
+        components_folder.source = qml/components
+        components_folder.target = qml
+        DEPLOYMENTFOLDERS = components_folder
+    }
 }
+
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp
