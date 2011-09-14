@@ -18,7 +18,7 @@ QML_IMPORT_PATH =
 symbian{
 
     TARGET.UID3 = 0xE1122D8B
-
+    DEFINES += APP_VERSION=\"$$VERSION\"
 # Smart Installer package's UID
 # This UID is from the protected range and therefore the package will
 # fail to install if self-signed. By default qmake uses the unprotected
@@ -39,10 +39,13 @@ symbian{
         DEFINES += QT_COMPONENTS
     }
 }
-#windows{
-#    CONFIG += qt-components
-#    DEFINES += QT_COMPONENTS
-#}
+#only for tests
+windows{
+    CONFIG += qt-components
+    DEFINES += QT_COMPONENTS
+
+    DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+}
 contains(DEFINES, QT_COMPONENTS){
         components_folder.source = qml/components
         components_folder.target = qml

@@ -4,7 +4,7 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-
+    app.setApplicationVersion(APP_VERSION);
 
     QmlApplicationViewer viewer;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
