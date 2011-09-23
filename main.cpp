@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     app.setApplicationVersion(APP_VERSION);
 
     QmlApplicationViewer viewer;
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
+    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
 #ifdef QT_COMPONENTS
     viewer.setMainQmlFile(QLatin1String("qml/components/main.qml"));
 #else
