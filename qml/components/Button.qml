@@ -3,7 +3,7 @@ import QtQuick 1.0
 Rectangle {
     id: container
 
-    property string text: "Botao"
+    property string text: "Button"
 
     signal clicked
 

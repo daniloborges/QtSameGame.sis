@@ -54,7 +54,7 @@ Page {
                     id: headingText
                     anchors.fill: listHeading.paddingItem
                     role: "Heading"
-                    text: "Ranking"
+                    text: qsTr("Ranking")
                 }
             }
         }
@@ -75,7 +75,7 @@ Page {
             InfoBanner {
                 id: notSavedBanner
 
-                text: "Score not saved"
+                text: qsTr("Score not saved")
                 interactive: true
                 timeout: 3000
                 onClicked: SameGame.requestName(); //last chance to save score
@@ -92,7 +92,7 @@ Page {
         }
         ToolButton{
             id: play
-            text: "Jogar!"
+            text: qsTr("Play!")
             onClicked: SameGame.startNewGame()
         }
         //TODO: Erase ranking

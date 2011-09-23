@@ -4,7 +4,7 @@
 # MOBILITY +=
 
 TARGET = SameGame
-VERSION = 1.2.1
+VERSION = 1.3.0
 
 # Add more folders to ship with the application, here
 # hack to see any qml file
@@ -71,3 +71,10 @@ OTHER_FILES += \
 
 RESOURCES += \
     resources.qrc
+
+TRANSLATIONS += i18n/GamePage_pt_BR.ts \
+                i18n/GamePage_en.ts \
+                i18n/WonDialog_pt_BR.ts \
+                i18n/WonDialog_en.ts \
+                i18n/engine_pt_BR.ts \
+                i18n/engine_en.ts

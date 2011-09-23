@@ -317,7 +317,7 @@ function fillPlayersName(){
                 }
             }
         });
-    model.append({"name" : "I'm new player"});
+    model.append({"name" : qsTr("I'm new player")});
     return model;
 }
 

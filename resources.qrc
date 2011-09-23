@@ -9,5 +9,11 @@
         <file>gfx/redStone.png</file>
         <file>gfx/star.png</file>
         <file>gfx/yellowStone.png</file>
+        <file>i18n/engine_en.qm</file>
+        <file>i18n/engine_pt_BR.qm</file>
+        <file>i18n/GamePage_en.qm</file>
+        <file>i18n/GamePage_pt_BR.qm</file>
+        <file>i18n/WonDialog_en.qm</file>
+        <file>i18n/WonDialog_pt_BR.qm</file>
     </qresource>
 </RCC>

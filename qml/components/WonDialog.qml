@@ -4,7 +4,7 @@ import com.nokia.symbian 1.0
 
 SelectionDialog {
     property string name
-    property string defaultTitle: "pts! ...But who?"
+    property string defaultTitle: qsTr("pts! ...But who?")
 
     id: nameSelection
 
@@ -22,7 +22,7 @@ SelectionDialog {
     CommonDialog {
         id: dialog
         visible: false
-        titleText: "What's your name?"
+        titleText: qsTr("What's your name?")
         buttons: ToolBar {
             id: buttons
             width: parent.width
@@ -33,13 +33,13 @@ SelectionDialog {
                 spacing: platformStyle.paddingMedium
 
                 ToolButton {
-                    text: "Save"
+                    text: qsTr("Save")
                     width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
                     onClicked: dialog.accept()
                 }
 
                 ToolButton {
-                    text: "Cancel"
+                    text: qsTr("Cancel")
                     width: (buttons.width - 3 * platformStyle.paddingMedium) / 2
                     onClicked: dialog.reject()
                 }
@@ -49,7 +49,7 @@ SelectionDialog {
             id: customName
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            placeholderText: "I'm..."
+            placeholderText: qsTr("I'm...")
             width: parent.width - (2 * platformStyle.paddingLarge)
             focus: true
             text: nameSelection.name
