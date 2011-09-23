@@ -4,7 +4,7 @@
 # MOBILITY +=
 
 TARGET = SameGame
-VERSION = 1.1.1
+VERSION = 1.2.1
 
 # Add more folders to ship with the application, here
 # hack to see any qml file
@@ -16,8 +16,10 @@ DEPLOYMENTFOLDERS = qml_folder
 QML_IMPORT_PATH =
 
 symbian{
-
-    TARGET.UID3 = 0xE1122D8B
+    #Nokia Signed UID
+    TARGET.UID3 = 0x2004A9F9
+    #Test UID
+    #TARGET.UID3 = 0xE1122D8B
     DEFINES += APP_VERSION=\"$$VERSION\"
 # Smart Installer package's UID
 # This UID is from the protected range and therefore the package will
